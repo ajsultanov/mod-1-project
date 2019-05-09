@@ -159,7 +159,7 @@ def favorite_menu(fav)
   puts ""
   puts "Restaurant: #{fav.restaurant.name}"
   puts "Cuisine: #{fav.restaurant.cuisine}"
-  # latest grade
+  puts "Latest Grade: [ #{fav.restaurant.latest_inspection.grade} ] on #{fav.restaurant.latest_inspection.date}"
   puts "My Rating: #{fav.my_rating}"
   puts ""
   puts "Options:"
@@ -181,7 +181,9 @@ def favorite_menu(fav)
     puts ""
     puts "Rating updated to #{fav.my_rating}"
     puts "*****************"
-    fav.user.favorite_restaurants
+
+    returner = get_input
+    fav.user.favorite_restaurants if returner
   when "2"
     puts ""
     puts "Are you sure? [ Y / N ]"
@@ -192,7 +194,9 @@ def favorite_menu(fav)
       Favorite.delete(self.id)
       puts "Favorite deleted"
       puts "****************"
-      fav.user.favorite_restaurants
+
+      returner = get_input
+      fav.user.favorite_restaurants if returner
     else
       favorite_menu(fav)
     end
