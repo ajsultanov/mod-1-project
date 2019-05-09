@@ -55,19 +55,21 @@ def populate_db_from_json(restaurant, user)
 
 end
 
-# def populate_yuck_from_json
-#
-#   response_string = RestClient.get("https://data.cityofnewyork.us/resource/43nn-pn8j.json?$where=score > 100")
-#   response_hash = JSON.parse(response_string)
-#   worst_violations = response_hash
-#
-#   if restaurant_violations == []
-#     puts "WHOOPS!"
-#     main_menu(user)
-#   end
-# binding.pry
-#   random_hash = restaurant_violations.sample
-#   puts 'random_hash["violation_code"]'
-#   puts
-#
-# end
+
+
+def populate_yuck_from_json
+
+  response_string = RestClient.get("https://data.cityofnewyork.us/resource/43nn-pn8j.json?$where=score > 100")
+  response_hash = JSON.parse(response_string)
+  worst_violations = response_hash
+
+  if restaurant_violations == []
+    puts "WHOOPS!"
+    main_menu(user)
+  end
+
+  random_hash = restaurant_violations.sample
+  puts 'random_hash["violation_code"]'
+  puts
+
+end
