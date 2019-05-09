@@ -8,7 +8,6 @@ def populate_db_from_json(restaurant)
   response_hash = JSON.parse(response_string)
   restaurant_inspections = response_hash
 
-  binding.pry
 
   # selected_inspections = restaurant_inspections.select do |r|
   #   r[9] == restaurant.upcase
@@ -22,34 +21,48 @@ def populate_db_from_json(restaurant)
 
   restaurant_inspections.each do |inspection|
     restaurant = inspection["dba"]
-      if !restaurant.exists?
-        restaurant = Restaurant.new
-        restaurant.name = inspection["dba"]
-      
-        restaurant.address = "#{inspection} " + "#{first_inspection[12]}"
-        restaurant.zipcode = first_inspection[13]
-        restaurant.cuisine = first_inspection[15]
-        restaurant.save
-      end
+    #if !restaurant.exists
+    restaurant = Restaurant.new({
+    name: inspection["dba"],
+    address: "#{inspection["building"]} " + "#{inspection["street"]}",
+    zipcode: inspection["zipcode"],
+    cuisine: inspection["cuisine_description"]
+    })
+    restaurant.save
+    #end
 
-  violation = Violation.new
-  violation.code = first_inspection[18]
-  violation.description = first_inspection[19]
-  violation.critical = first_inspection[20]
-  violation.save
 
-  inspection = Inspection.new
-  inspection.grade = first_inspection[-4]
-  inspect_date = first_inspection[-3]
-  year = inspect_date[0..3]
-  month = inspect_date[5..6]
-  day = inspect_date[8..9]
-  inspection.date = "#{month}/" + "#{day}/" + "#{year}"
-  score_as_integer = first_inspection[21].to_i
-  inspection.score = score_as_integer
-  inspection.restaurant_id = restaurant.id
-  inspection.violation_id = violation.id
-  inspection.save
 
-  restaurant
+
+    #  end
+
+    violation = Violation.new({
+      code: inspection["violation_code"],
+      description: inspection["violation_description"],
+      critical: inspection["critical_flag"]
+      })
+    violation.save
+
+    i_date = inspection["inspection_date"]
+    year = i_date[0..3]
+    month = i_date[5..6]
+    day = i_date[8..9]
+    score_as_integer = inspection["score"].to_i
+
+    i = Inspection.new({
+      grade: inspection["grade"],
+      date: "#{month}/" + "#{day}/" + "#{year}",
+      score: score_as_integer,
+      restaurant_id: restaurant.id,
+      violation_id: violation.id
+      })
+      #inspection is nil if the restaurant fails
+      #changed to i because we're iterating over inspection above
+      #variables need cleaning up 
+    i.save
+  binding.pry
+
+    restaurant
   end
+
+end
