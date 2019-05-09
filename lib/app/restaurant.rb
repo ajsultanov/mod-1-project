@@ -5,8 +5,6 @@ class Restaurant < ActiveRecord::Base
   has_many :inspections
   has_many :violations, through: :inspections
 
-
-
   def latest_inspection
     self.inspections.first
   end
@@ -45,10 +43,5 @@ class Restaurant < ActiveRecord::Base
     puts "Reason: #{worst_inspection.violation.description}"
 
   end
-
-
-
-
-
 
 end
