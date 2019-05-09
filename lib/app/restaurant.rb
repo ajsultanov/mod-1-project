@@ -6,7 +6,7 @@ class Restaurant < ActiveRecord::Base
   has_many :violations, through: :inspections
 
   def latest_inspection
-    self.inspections.first
+    self.inspections.order(date: :desc).first
   end
 
   def profile
@@ -20,6 +20,7 @@ class Restaurant < ActiveRecord::Base
     puts "************************"
     puts "Grade: #{self.latest_inspection.grade} - Inspection Date: #{self.latest_inspection.date}"
     puts "************************"
+    inspection_history
   end
 
   def inspection_history

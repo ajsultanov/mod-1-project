@@ -74,6 +74,7 @@ def main_menu(user)                                # MAIN MENU START
       restaurant = populate_db_from_json(res, user)
     end
     restaurant.profile
+
     restaurant_menu(user, restaurant)
 
   when "2"
