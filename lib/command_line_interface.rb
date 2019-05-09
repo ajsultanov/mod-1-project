@@ -50,7 +50,7 @@ def user_name_prompt
 end
 
 
-def main_menu(user)
+def main_menu(user)                                # MAIN MENU START
   puts ""
   puts "Welcome to the D.O.H.-Jo"
   puts "************************"
@@ -73,52 +73,26 @@ def main_menu(user)
     if restaurant == nil
       restaurant = populate_db_from_json(res, user)
     end
-    # if restaurant == []
-    #   puts "Could not find that restaurant!"
-    #   main_menu(user)
-    # end
-binding.pry
     restaurant.profile
     restaurant_menu(user, restaurant)
 
-    # ||||| somehow this is accidentally getting called
-    # ||||| when searching for restaurant "mayfield"
-    # vvvvv and then hits an error on line 34
-
-#     Traceback (most recent call last):
-#             6: from bin/run.rb:8:in `<main>'
-#     5: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
-# lines-nyc-web-career-042219/lib/command_line_interface.rb:79:in `main_menu'
-#         4: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
-# lines-nyc-web-career-042219/lib/app/user.rb:35:in `favorite_restaurants'
-#         3: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
-# lines-nyc-web-career-042219/lib/command_line_interface.rb:157:in `favorite_menu'
-#         2: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
-# lines-nyc-web-career-042219/lib/app/user.rb:35:in `favorite_restaurants'
-#         1: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
-# lines-nyc-web-career-042219/lib/command_line_interface.rb:173:in `favorite_menu'
-# /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guidelines-nyc-web-ca
-# reer-042219/lib/app/user.rb:34:in `favorite_restaurants': undefined method `<' for nil:NilClass
-# (NoMethodError)
-
-    # i think its because there is no error handling for
-    # if the restaurant is both 1.not in our database
-    # and 3.not in the DOH api
-
-    # im tired...
-
   when "2"
     user.favorite_restaurants
+
   when "3"
     exit # mystery!
+
   when "4"
     exit
+
   when "exit"
     exit
+
   else
     main_menu(user)
+
   end
-end
+end                                                # MAIN MENU END
 
 def restaurant_prompt
   puts ""
@@ -132,7 +106,7 @@ def restaurant_prompt
   restaurant
 end
 
-def restaurant_menu(user, restaurant)
+def restaurant_menu(user, restaurant)              # RESTAURANT MENU START
   puts ""
   puts "Options:"
   puts "1. Add to Favorites"
@@ -145,22 +119,26 @@ def restaurant_menu(user, restaurant)
   case option
   when "1"
     user.add_to_favorites(restaurant)
+
   when "2"
     puts ""
     puts "View Favorites"
     puts "**************"
-    puts user.favorite_restaurants
+    user.favorite_restaurants
+
   when "3" || "exit"
     puts ""
     puts "Exit to main menu"
     puts "*****************"
     main_menu(user)
+
   else
     "Please enter a number from the menu"
-  end
-end
 
-def favorite_menu(fav)
+  end
+end                                                # RESTAURANT MENU END
+
+def favorite_menu(fav)                             # FAVORITE MENU START
   puts ""
   puts "Restaurant: #{fav.restaurant.name}"
   puts "Cuisine: #{fav.restaurant.cuisine}"
@@ -175,7 +153,11 @@ def favorite_menu(fav)
   print "> "
 
   option = get_input
+  if option == ""
+    favorite_menu(fav)
+  end
   case option
+
   when "1"
     puts ""
     puts "Enter a new rating number"
@@ -186,9 +168,11 @@ def favorite_menu(fav)
     puts ""
     puts "Rating updated to #{fav.my_rating}"
     puts "*****************"
+    puts "Press any key to return"
 
     returner = get_input
     fav.user.favorite_restaurants if returner
+
   when "2"
     puts ""
     puts "Are you sure? [ Y / N ]"
@@ -196,23 +180,29 @@ def favorite_menu(fav)
 
     sure = get_input
     if sure.upcase == "Y"
-      Favorite.delete(self.id)
+      fav.user.favorites.delete(fav.id)
+      fav.user.reload
       puts "Favorite deleted"
       puts "****************"
+      puts "Press any key to return"
 
       returner = get_input
-      fav.user.favorite_restaurants if returner
+      main_menu(fav.user) if returner
     else
       favorite_menu(fav)
     end
+
   when "3"
     fav.user(favorite_restaurants)
+
   when "4"
     main_menu(fav.user)
+
   else
     puts "Please enter a number from the menu"
+
   end
-end
+end                                                # FAVORITE MENU END
 
 def exit
   puts "Bye bye!!!"
