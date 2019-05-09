@@ -8,7 +8,7 @@ def populate_db_from_json(restaurant)
   response_hash = JSON.parse(response_string)
   restaurant_inspections = response_hash
 
-
+  binding.pry
 
   # selected_inspections = restaurant_inspections.select do |r|
   #   r[9] == restaurant.upcase
@@ -20,16 +20,17 @@ def populate_db_from_json(restaurant)
   #   r[9] == restaurant.upcase
   #   if restaurant.exists?
 
-
-
-
-  restaurant = Restaurant.new
-  restaurant.name = first_inspection[9]
-  restaurant.address = "#{first_inspection[11]} " + "#{first_inspection[12]}"
-  restaurant.zipcode = first_inspection[13]
-  restaurant.cuisine = first_inspection[15]
-  restaurant.save
-
+  restaurant_inspections.each do |inspection|
+    restaurant = inspection["dba"]
+      if !restaurant.exists?
+        restaurant = Restaurant.new
+        restaurant.name = inspection["dba"]
+      
+        restaurant.address = "#{inspection} " + "#{first_inspection[12]}"
+        restaurant.zipcode = first_inspection[13]
+        restaurant.cuisine = first_inspection[15]
+        restaurant.save
+      end
 
   violation = Violation.new
   violation.code = first_inspection[18]
