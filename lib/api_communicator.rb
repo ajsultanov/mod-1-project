@@ -61,6 +61,7 @@ def populate_db_from_json(restaurant)
       #variables need cleaning up
     i.save
 
+
     restaurant
   end
 
