@@ -32,12 +32,14 @@ class User < ActiveRecord::Base
       favorite_restaurants
     elsif /\d/.match(option)
       option_num = option.to_i - 1
+
       if option_num < favorites.count
         favorite_menu(favorites[option_num])
       else
         puts "Please enter a valid option"
         favorite_restaurants
       end
+
     end
   end
 
@@ -51,6 +53,7 @@ class User < ActiveRecord::Base
       main_menu(self) if returner
     else
       Favorite.create({user_id: self.id, restaurant_id: restaurant.id})
+      self.reload
       puts "Added to favorites"
       puts "******************"
       puts "Press any key to return"
