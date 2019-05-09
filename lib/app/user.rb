@@ -39,7 +39,9 @@ class User < ActiveRecord::Base
         puts "Please enter a valid option"
         favorite_restaurants
       end
-
+    else
+      puts "Please enter a valid option"
+      favorite_restaurants
     end
   end
 

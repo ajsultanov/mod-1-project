@@ -40,7 +40,7 @@ def populate_db_from_json(restaurant, user)
     score_as_integer = violation["score"].to_i
 
     #parsing string data for inspection
-    violation["grade"] != nil ? g = violation["grade"] : g = "NOT PRESENT"
+    violation["grade"] != nil ? g = violation["grade"] : g = "???"
 
 
     i = Inspection.create({

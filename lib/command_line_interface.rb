@@ -53,6 +53,7 @@ end
 def main_menu(user)                                # MAIN MENU START
   puts ""
   puts "Welcome to the D.O.H.-Jo"
+  puts "[ #{user.name} ]"
   puts "************************"
   puts "      MAIN MENU"
   puts "************************"
@@ -135,6 +136,7 @@ def restaurant_menu(user, restaurant)              # RESTAURANT MENU START
 
   else
     "Please enter a number from the menu"
+    restaurant_menu(user, restaurant)
 
   end
 end                                                # RESTAURANT MENU END
@@ -149,8 +151,9 @@ def favorite_menu(fav)                             # FAVORITE MENU START
   puts "Options:"
   puts "1. Edit Rating"
   puts "2. Delete Favorite"
-  puts "3. Back to Favorites Menu"
-  puts "4. Exit to Main Menu"
+  puts "3. View Full Inspection History"
+  puts "4. Back to Favorites Menu"
+  puts "5. Exit to Main Menu"
   print "> "
 
   option = get_input
@@ -194,14 +197,23 @@ def favorite_menu(fav)                             # FAVORITE MENU START
     end
 
   when "3"
-    fav.user(favorite_restaurants)
+    puts ""
+    puts fav.restaurant.inspection_history
+    puts "*****************"
+    puts "Press any key to return"
+
+    returner = get_input
+    favorite_menu(fav) if returner
 
   when "4"
+    fav.user(favorite_restaurants)
+
+  when "5"
     main_menu(fav.user)
 
   else
     puts "Please enter a number from the menu"
-
+    favorite_menu(fav)  
   end
 end                                                # FAVORITE MENU END
 

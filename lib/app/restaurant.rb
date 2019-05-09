@@ -20,13 +20,16 @@ class Restaurant < ActiveRecord::Base
     puts "************************"
     puts "Grade: #{self.latest_inspection.grade} - Inspection Date: #{self.latest_inspection.date}"
     puts "************************"
-    inspection_history
+    history = inspection_history
+    puts history[1...10]
   end
 
   def inspection_history
+    history = []
     self.inspections.order(date: :desc).each.with_index do |inspection, i|
-      puts "#{i+1}. Grade: #{inspection.grade} - Inspection Date: #{inspection.date}"
+      history << "#{i+1}. Grade: #{inspection.grade} - Date: #{inspection.date} - Code: #{inspection.violation.code}"
     end
+    history
   end
 
   def worst_violation
