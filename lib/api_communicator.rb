@@ -8,43 +8,29 @@ def populate_db_from_json(restaurant, user)
   response_hash = JSON.parse(response_string)
   restaurant_violations = response_hash
 
+  first_hash = restaurant_violations.first
 
+    if restaurant_violations == []
+      puts "RESTAURANTNTNT NOOOOOOOO"
+      main_menu(user)
+    end
 
-  if restaurant_violations == []
-    puts "RESTAURANTNTNT NOOOOOOOO"
-    main_menu(user)
+  if !Restaurant.exists?(name: restaurant)
+    r = Restaurant.create({
+    name: first_hash["dba"],
+    address: "#{first_hash["building"]} " + "#{first_hash["street"]}",
+    zipcode: first_hash["zipcode"],
+    cuisine: first_hash["cuisine_description"]
+    })
   end
 
-  # selected_inspections = restaurant_inspections.select do |r|
-  #   r[9] == restaurant.upcase
-  # end
-  #
-  # first_inspection = selected_inspections
-  #
-  # first_inspection.each do |inspection|
-  #   r[9] == restaurant.upcase
-  #   if restaurant.exists?
-
   restaurant_violations.each do |violation|
-     restaurant = violation["dba"]
-      if !Restaurant.exists?(name: restaurant)
-        r = Restaurant.new({
-        name: violation["dba"],
-        address: "#{violation["building"]} " + "#{violation["street"]}",
-        zipcode: violation["zipcode"],
-        cuisine: violation["cuisine_description"]
-        })
-        r.save
-      # else
-      #   r = restaurant
-      end
-
-    v = Violation.new({
+    v = Violation.create({
       code: violation["violation_code"],
       description: violation["violation_description"],
       critical: violation["critical_flag"]
       })
-    v.save
+
 
     #parsing string data for inspection
     i_date = violation["inspection_date"]
@@ -56,19 +42,21 @@ def populate_db_from_json(restaurant, user)
     #parsing string data for inspection
     violation["grade"] != nil ? g = violation["grade"] : g = "NOT PRESENT"
 
-    i = Inspection.new({
+
+    i = Inspection.create({
       grade: "#{g}",
-      date: "#{month}/" + "#{day}/" + "#{year}",
+      date: "#{year}/#{month}/#{day}",
       score: score_as_integer,
-      restaurant_id: restaurant.id,
+
+      restaurant_id: r.id,
       violation_id: v.id
       })
       #inspection is nil if the restaurant fails
       #changed to i because we're iterating over inspection above
       #variables need cleaning up
-    i.save
+
 
 
   end
-  restaurant
+  r
 end
