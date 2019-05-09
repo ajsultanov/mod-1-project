@@ -26,16 +26,18 @@ def populate_db_from_json(restaurant, user)
   #   if restaurant.exists?
 
   restaurant_violations.each do |violation|
-    # r = violation["dba"]
-    if !Restaurant.exists?(name: restaurant)
-      restaurant = Restaurant.new({
-      name: violation["dba"],
-      address: "#{violation["building"]} " + "#{violation["street"]}",
-      zipcode: violation["zipcode"],
-      cuisine: violation["cuisine_description"]
-      })
-      restaurant.save
-    end
+     restaurant = violation["dba"]
+      if !Restaurant.exists?(name: restaurant)
+        r = Restaurant.new({
+        name: violation["dba"],
+        address: "#{violation["building"]} " + "#{violation["street"]}",
+        zipcode: violation["zipcode"],
+        cuisine: violation["cuisine_description"]
+        })
+        r.save
+      # else
+      #   r = restaurant
+      end
 
     v = Violation.new({
       code: violation["violation_code"],
@@ -53,11 +55,6 @@ def populate_db_from_json(restaurant, user)
 
     #parsing string data for inspection
     violation["grade"] != nil ? g = violation["grade"] : g = "NOT PRESENT"
-      # if g != nil
-      #     g = violation["grade"]
-      # else
-      #     g = "NOT PRESENT"
-      # end
 
     i = Inspection.new({
       grade: "#{g}",
