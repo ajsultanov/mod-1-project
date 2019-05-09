@@ -58,9 +58,8 @@ def populate_db_from_json(restaurant)
       })
       #inspection is nil if the restaurant fails
       #changed to i because we're iterating over inspection above
-      #variables need cleaning up 
+      #variables need cleaning up
     i.save
-  binding.pry
 
     restaurant
   end
