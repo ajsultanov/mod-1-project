@@ -1,4 +1,4 @@
-def welcome
+ def welcome
   puts "
   █     █          █ █
   █     █   █ █ █    █     █ █ █    █ █ █   █ █   █ █   █ █ █
