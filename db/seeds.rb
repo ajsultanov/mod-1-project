@@ -48,8 +48,14 @@ insp1 = Inspection.create(
   :grade=> "Z"
 )
 insp2 = Inspection.create(
-  :restaurant_id=> 2,
-  :violation_id=> 2,
+  :restaurant_id=> 8,
+  :violation_id=> 8,
   :date=> "May 3, 2008",
   :grade=> "A"
+)
+insp3 = Inspection.create(
+  :restaurant_id=> 7,
+  :violation_id=> 7,
+  :date=> "August 7, 2007",
+  :grade=> "B"
 )

@@ -1,53 +1,58 @@
 def welcome
   puts "
-   _             _                _  _
-  (_)           (_)              (_)(_)
-  (_)           (_)  _  _  _  _     (_)     _  _  _    _  _  _      _  _   _  _    _  _  _  _
-  (_)     _     (_) (_)(_)(_)(_)_   (_)   _(_)(_)(_)_ (_)(_)(_) _  (_)(_)_(_)(_)  (_)(_)(_)(_)_
-  (_)   _(_)_   (_)(_) _  _  _ (_)  (_)  (_)       (_)         (_)(_)   (_)   (_)(_) _  _  _ (_)
-  (_)  (_) (_)  (_)(_)(_)(_)(_)(_)  (_)  (_)       (_)         (_)(_)   (_)   (_)(_)(_)(_)(_)(_)
-  (_)_(_)   (_)_(_)(_)_  _  _  _  _ (_) _(_)_  _  _(_) _  _  _ (_)(_)   (_)   (_)(_)_  _  _  _
-    (_) _     (_)    (_)(_)(_)(_)(_)(_)(_) (_)(_)(_)  (_)(_)(_)   (_)   (_)   (_)  (_)(_)(_)(_)
-       (_)
-     _ (_) _  _      _  _  _
-    (_)(_)(_)(_)  _ (_)(_)(_) _
-       (_)       (_)         (_)
-       (_)     _ (_)         (_)
-       (_)_  _(_)(_) _  _  _ (_)
-        _(_)(_)   _ (_)(_)(_)
-       (_)       (_)
-     _ (_) _  _  (_) _  _  _     _  _  _  _
-    (_)(_)(_)(_) (_)(_)(_)(_)_  (_)(_)(_)(_)_
-       (_)       (_)        (_)(_) _  _  _ (_)
-       (_)     _ (_)        (_)(_)(_)(_)(_)(_)
-       (_)_  _(_)(_)        (_)(_)_  _  _  _
-         (_)(_)  (_)        (_)  (_)(_)(_)(_)
-    _  _  _  _       _  _  _  _    _           _                        _  _  _   _  _  _  _
-   (_)(_)(_)(_)    _(_)(_)(_)(_)_ (_)         (_)                      (_)(_)(_)_(_)(_)(_)(_)_
-    (_)      (_)_ (_)          (_)(_)         (_)                         (_)  (_)          (_)
-    (_)        (_)(_)          (_)(_) _  _  _ (_)  _  _  _  _  _          (_)  (_)          (_)
-    (_)        (_)(_)          (_)(_)(_)(_)(_)(_) (_)(_)(_)(_)(_)         (_)  (_)          (_)
-    (_)       _(_)(_)          (_)(_)         (_)                  _      (_)  (_)          (_)
-    (_)_  _  (_)  (_)_  _  _  _(_)(_)         (_)                 (_)  _  (_)  (_)_  _  _  _(_)
-   (_)(_)(_)(_)     (_)(_)(_)(_)  (_)         (_)                  (_)(_)(_)     (_)(_)(_)(_)
+  █     █          █ █
+  █     █   █ █ █    █     █ █ █    █ █ █   █ █   █ █   █ █ █
+  █     █  █     █   █    █        █     █  █  █ █  █  █     █
+  █  █  █  █ █ █ █   █    █        █     █  █   █   █  █ █ █ █
+  █ █ █ █  █         █    █        █     █  █   █   █  █
+   █   █    █ █ █    █ █   █ █ █    █ █ █   █   █   █   █ █ █
 
+                                    /\\   /\\
+    █                              / /\\_/\\ \\
+    █      █ █ █                   \\/ _ _ \\/       __________
+  █ █ █   █     █                  |  o o  |      (,______ __)
+    █     █     █                  |#     #|       \\\\  ( ) #|
+    █     █     █                 / \\.   ./ \\       \\\\#  # ,|
+     █ █   █ █ █                 /  >(. .)<  \\       \\\\#  (_|
+                                 |    \\ /     \\       \\\\,#  |
+    █     █                      |     0      |        \\\\ _#|
+    █     █        █ █ █         / \\  ,     \\ \\        ,\\\\ )|
+  █ █ █   █ █ █   █     █       |   \\ \\      \\ \\         \\\\ |
+    █     █    █  █ █ █ █       |    \\mb      dm          \\\\|
+    █     █    █  █            /                \\          ;
+     █ █  █    █   █ █ █       \\     \\     /    /\\___________
+                                \\__nnn\\___|nnn_/\\/_|_|_|_|_|,>
 
-
+  █ █ █         █ █      █     █            █ █ █ █     █ █
+  █     █     █     █    █     █                  █   █     █
+  █      █   █       █   █ █ █ █                  █  █       █
+  █      █   █       █   █     █    █ █ █         █  █       █
+  █     █     █     █    █     █            █     █   █     █
+  █ █ █   █     █ █   █  █     █  █           █ █       █ █
   "
 end
 
-def get_user_name_from_user
+def get_input
+  input = gets.chomp
+end
+
+def user_name_prompt
   puts "Please enter your name to begin:"
   print "> "
 
-  user_name = gets.chomp
+  user_name = get_input
+  if user_name == ""
+    user_name_prompt
+  end
   puts ""
   puts "Hello, #{user_name}!"
   user_name
 end
 
+
 def main_menu(user)
-  puts "Welcome to the D.O.H.-jo"
+  puts ""
+  puts "Welcome to the D.O.H.-Jo"
   puts "************************"
   puts "      MAIN MENU"
   puts "************************"
@@ -63,26 +68,63 @@ def main_menu(user)
   option = get_input
   case option
   when "1"
-    # go to restaurant search
+    res = restaurant_prompt
+    restaurant = Restaurant.find_by(name: res)
+    if restaurant == nil
+      restaurant = populate_db_from_json(res)
+    end
+    restaurant.profile
+    restaurant
+
+    # ||||| somehow this is accidentally getting called
+    # ||||| when searching for restaurant "mayfield"
+    # vvvvv and then hits an error on line 34
+
+#     Traceback (most recent call last):
+#             6: from bin/run.rb:8:in `<main>'
+#     5: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
+# lines-nyc-web-career-042219/lib/command_line_interface.rb:79:in `main_menu'
+#         4: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
+# lines-nyc-web-career-042219/lib/app/user.rb:35:in `favorite_restaurants'
+#         3: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
+# lines-nyc-web-career-042219/lib/command_line_interface.rb:157:in `favorite_menu'
+#         2: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
+# lines-nyc-web-career-042219/lib/app/user.rb:35:in `favorite_restaurants'
+#         1: from /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guide
+# lines-nyc-web-career-042219/lib/command_line_interface.rb:173:in `favorite_menu'
+# /Users/adamsultanov/Development/mod-1/assignments/module-one-final-project-guidelines-nyc-web-ca
+# reer-042219/lib/app/user.rb:34:in `favorite_restaurants': undefined method `<' for nil:NilClass
+# (NoMethodError)
+
+    # i think its because there is no error handling for
+    # if the restaurant is both 1.not in our database
+    # and 3.not in the DOH api
+
+    # im tired...
+
   when "2"
     user.favorite_restaurants
   when "3"
     exit # mystery!
-  else
+  when "4"
     exit
+  when "exit"
+    exit
+  else
+    main_menu(user)
   end
 end
 
-def get_restaurant_input
+def restaurant_prompt
   puts ""
   puts "Which restaurant would you like to check out?"
   print "> "
-  input = gets.chomp
-  input
-end
 
-def get_input
-  input = gets.chomp
+  restaurant = get_input
+  if restaurant == ""
+    restaurant_prompt
+  end
+  restaurant
 end
 
 def restaurant_menu(user, restaurant)
@@ -150,7 +192,7 @@ def favorite_menu(fav)
       Favorite.delete(self.id)
       puts "Favorite deleted"
       puts "****************"
-      user.favorite_restaurants
+      fav.user.favorite_restaurants
     else
       favorite_menu(fav)
     end

@@ -1,31 +1,17 @@
 require_relative '../config/environment'
-require_relative '../lib/api_communicator.rb'
-require_relative '../lib/command_line_interface.rb'
+# require_relative '../lib/api_communicator.rb'
+# require_relative '../lib/command_line_interface.rb'
 
 welcome
-user_name = get_user_name_from_user
-user = User.find_or_create_by(name: user_name)
+user = User.find_or_create_by(name: user_name_prompt)
 
-main_menu(user)
+restaurant = main_menu(user)
 
-restaurant_name = get_restaurant_input
-input = Restaurant.find_by(name: restaurant_name)
-#restaurant not retrieving from db
-  if input == nil
-    restaurant = populate_db_from_json(restaurant_name)
-  else
-    restaurant = input
-  end
-
-binding.pry
-
-restaurant.profile
+# rest_name = restaurant_prompt
+# restaurant = Restaurant.find_by(name: rest_name)
+# if restaurant == nil
+#   restaurant = populate_db_from_json(rest_name)
+# end
+# restaurant.profile
 
 restaurant_menu(user, restaurant)
-
-puts "HELLO WORLD"
-
-
-# welcome
-# character = get_character_from_user
-# show_character_movies(character)
