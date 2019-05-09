@@ -69,12 +69,16 @@ def main_menu(user)
   case option
   when "1"
     res = restaurant_prompt
-    restaurant = Restaurant.find_by(name: res)
+    restaurant = Restaurant.find_by(name: res.upcase)
     if restaurant == nil
-      restaurant = populate_db_from_json(res)
+      restaurant = populate_db_from_json(res, user)
     end
+    # if restaurant == []
+    #   puts "Could not find that restaurant!"
+    #   main_menu(user)
+    # end
     restaurant.profile
-    restaurant
+    restaurant_menu(user, restaurant)
 
     # ||||| somehow this is accidentally getting called
     # ||||| when searching for restaurant "mayfield"

@@ -2,12 +2,16 @@ require 'rest-client'
 require 'json'
 require 'pry'
 
-def populate_db_from_json(restaurant)
+def populate_db_from_json(restaurant, user)
 
   response_string = RestClient.get("https://data.cityofnewyork.us/resource/43nn-pn8j.json?dba=#{restaurant.upcase}")
   response_hash = JSON.parse(response_string)
   restaurant_inspections = response_hash
 
+  if restaurant_inspections = []
+    puts "RESTAURANTNTNT NOOOOOOOO"
+    main_menu(user)
+  end
 
   # selected_inspections = restaurant_inspections.select do |r|
   #   r[9] == restaurant.upcase
