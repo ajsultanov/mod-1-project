@@ -8,12 +8,12 @@ def populate_db_from_json(restaurant, user)
   response_hash = JSON.parse(response_string)
   restaurant_violations = response_hash
 
-  first_hash = restaurant_violations.first
+  if restaurant_violations == []
+    puts "RESTAURANTNTNT NOOOOOOOO"
+    main_menu(user)
+  end
 
-    if restaurant_violations == []
-      puts "RESTAURANTNTNT NOOOOOOOO"
-      main_menu(user)
-    end
+  first_hash = restaurant_violations.first
 
   if !Restaurant.exists?(name: restaurant)
     r = Restaurant.create({
@@ -31,7 +31,6 @@ def populate_db_from_json(restaurant, user)
       critical: violation["critical_flag"]
       })
 
-
     #parsing string data for inspection
     i_date = violation["inspection_date"]
     year = i_date[0..3]
@@ -42,21 +41,35 @@ def populate_db_from_json(restaurant, user)
     #parsing string data for inspection
     violation["grade"] != nil ? g = violation["grade"] : g = "???"
 
-
     i = Inspection.create({
       grade: "#{g}",
       date: "#{year}/#{month}/#{day}",
       score: score_as_integer,
-
       restaurant_id: r.id,
       violation_id: v.id
       })
-      #inspection is nil if the restaurant fails
-      #changed to i because we're iterating over inspection above
       #variables need cleaning up
-
-
 
   end
   r
+
+end
+
+
+
+def populate_yuck_from_json
+
+  response_string = RestClient.get("https://data.cityofnewyork.us/resource/43nn-pn8j.json?$where=score > 100")
+  response_hash = JSON.parse(response_string)
+  worst_violations = response_hash
+
+  if restaurant_violations == []
+    puts "WHOOPS!"
+    main_menu(user)
+  end
+
+  random_hash = restaurant_violations.sample
+  puts 'random_hash["violation_code"]'
+  puts
+
 end
