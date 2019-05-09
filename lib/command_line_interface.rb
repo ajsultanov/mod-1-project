@@ -77,6 +77,7 @@ def main_menu(user)
     #   puts "Could not find that restaurant!"
     #   main_menu(user)
     # end
+binding.pry
     restaurant.profile
     restaurant_menu(user, restaurant)
 
