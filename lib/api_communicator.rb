@@ -8,13 +8,14 @@ def populate_db_from_json(restaurant, user)
   response_hash = JSON.parse(response_string)
   restaurant_violations = response_hash
 
+  #backstop for empty/wrong dba value
   if restaurant_violations == []
     puts "Sorry, we couldn't find that restaurant!"
     main_menu(user)
   end
                                                                                 #CREATE RESTAURANT
   first_hash = restaurant_violations.first
-  
+
   if !Restaurant.exists?(name: restaurant)
     r = Restaurant.create({
       name: first_hash["dba"],
@@ -31,14 +32,14 @@ def populate_db_from_json(restaurant, user)
       critical: violation["critical_flag"]
       })
 
-    #parsing string data for inspection
+    #parsing string data for inspection date and score
     i_date = violation["inspection_date"]
     year = i_date[0..3]
     month = i_date[5..6]
     day = i_date[8..9]
     score_as_integer = violation["score"].to_i
 
-    #parsing string data for inspection
+    #backstop for empty grade value
     violation["grade"] != nil ? g = violation["grade"] : g = "???"
                                                                                 #LINK INSPECTIONS TO RESTAURANT
     i = Inspection.create({
@@ -60,19 +61,14 @@ def retrieve_yuck_from_json
   response_hash = JSON.parse(response_string)
   worst_violations = response_hash
 
-  if worst_violations == []
-    puts "WHOOPS!"
-    main_menu(user)
-  end
-
-  smaller_hash = worst_violations[0..49]
-  random_hash = smaller_hash.sample
-  puts "#{random_hash["dba"]}"
+  #select and puts random violation
+  random_hash = worst_violations.sample
+  puts "Restaurant: #{random_hash["dba"]}"
   puts ""
-  puts "#{random_hash["score"]}"
+  puts "Inspection score: #{random_hash["score"]}"
   puts ""
-  puts "#{random_hash["violation_code"]}"
+  puts "Violation code: #{random_hash["violation_code"]}"
   puts ""
-  puts "#{random_hash["violation_description"]}"
+  puts "Reason: #{random_hash["violation_description"]}"
 
 end
