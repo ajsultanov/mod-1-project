@@ -87,7 +87,7 @@ def main_menu(user)                                # MAIN MENU START
     puts "Let's roll the dice!"
     puts "************************"
     user.yuck_my_yum
-    #rename this
+    
 
   when "4"
     vcode_menu(user)
@@ -267,7 +267,7 @@ def vcode_menu(user)
     puts ""
     puts "99B - GENERAL - Miscellaneous"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -286,7 +286,7 @@ def vcode_menu(user)
     puts "02I - Critical - Potentially hazardous food not cooled to 41°F when prepared from ambient temperature ingredients within 4 hours"
     puts "02J - Public Health Hazard - Reduced oxygen packaged foods not properly cooled"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -309,7 +309,7 @@ def vcode_menu(user)
     puts "03F - Public Health Hazard - Unpasteurized milk and milk products"
     puts "03G - Critical - Fruits and vegetables not washed prior to serving"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -336,7 +336,7 @@ def vcode_menu(user)
     puts "04N - Critical - Filth flies"
     puts "04O - Critical - Live animal other than fish in tank or service animal"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -358,7 +358,7 @@ def vcode_menu(user)
     puts "05H - Critical - Manual or mechanical tableware, utensil and/or ware washing facilities not provided"
     puts "05I - Critical - Refrigeration unit not equipped with an electronic system"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -385,7 +385,7 @@ def vcode_menu(user)
     puts "06H - Critical - Records and logs not maintained on site"
     puts "06I - Critical - Food not labeled in accordance with the approved HACCP plan"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -394,7 +394,7 @@ def vcode_menu(user)
     puts ""
     puts "07A - Critical - Obstruction of Department personnel"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -412,7 +412,7 @@ def vcode_menu(user)
     puts "                Open bait station observed"
     puts "                Toxic materials not properly stored"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -423,7 +423,7 @@ def vcode_menu(user)
     puts "09B - General - Thawing procedures improper"
     puts "09C - General - Food contact surface improperly constructed and maintained; not easily cleanable"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -454,7 +454,7 @@ def vcode_menu(user)
     puts "                Drinking straws improperly dispensed"
     puts "10J - General - Wash hands sign not posted"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -463,7 +463,7 @@ def vcode_menu(user)
     puts ""
     puts "99A - Other Health Code unscored violations"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -493,7 +493,7 @@ def vcode_menu(user)
     puts "15S - Flavored tobacco products sold or offered for sale"
     puts "15T - Flavored tobacco products sold or offered for sale"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -506,7 +506,7 @@ def vcode_menu(user)
     puts "16E - Calorie range of food items that come in different flavors and varieties not provided"
     puts "16F - Calorie range of food items that come in different combinations not provided"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -525,7 +525,7 @@ def vcode_menu(user)
     puts "18H - Operator of shared kitchen allowing user without currently valid permit"
     puts "      Failure of temporary event sponsor to exclude vendor without a currently valid permit"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -542,7 +542,7 @@ def vcode_menu(user)
     puts "20E - Current letter grade or \"Grade Pending\" card not conspicuously posted"
     puts "20F - Current letter grade or \"Grade Pending\" card not posted"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner
@@ -558,7 +558,7 @@ def vcode_menu(user)
     puts "22F - Misbranded, mislabeled packaged food products"
     puts "22G - Possess, sell expanded polystyrene single service articles"
     puts "*****************"
-    puts "Press any key"
+    puts "Press return to return to the violations menu"
 
     returner = get_input
     vcode_menu(user) if returner

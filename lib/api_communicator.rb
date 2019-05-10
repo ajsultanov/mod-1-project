@@ -14,7 +14,7 @@ def populate_db_from_json(restaurant, user)
   end
                                                                                 #CREATE RESTAURANT
   first_hash = restaurant_violations.first
-
+  
   if !Restaurant.exists?(name: restaurant)
     r = Restaurant.create({
       name: first_hash["dba"],
