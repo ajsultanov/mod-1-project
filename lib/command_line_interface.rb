@@ -87,7 +87,7 @@ def main_menu(user)                                # MAIN MENU START
     puts "Let's roll the dice!"
     puts "************************"
     user.yuck_my_yum
-    
+
 
   when "4"
     vcode_menu(user)
@@ -222,7 +222,7 @@ def favorite_menu(fav)                             # FAVORITE MENU START
     puts ""
     puts fav.restaurant.inspection_history
     puts "*****************"
-    puts "Press any key to return"
+    puts "Press return to return to favorites menu"
 
     returner = get_input
     favorite_menu(fav) if returner
