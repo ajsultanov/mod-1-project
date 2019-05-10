@@ -10,7 +10,7 @@ The Feeling Lucky? feature delivers a random restaurant inspection
 where the score was over 100, and its corresponding code violation
 and description.
 
-Installation is easy, simply fork and clone the repository, and run 'ruby bin/run.rb' in your terminal. Make sure to run 'bundle install' beforehand!
+With Ruby, installation is easy. Simply fork and clone the repository, and run 'ruby bin/run.rb' in your terminal. Make sure to run 'bundle install' beforehand!
 
 
 Code contributions by Adam Sultanov and Henry Koehler.
