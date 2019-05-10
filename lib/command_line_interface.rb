@@ -190,11 +190,22 @@ def favorite_menu(fav)                             # FAVORITE MENU START
     print "> "
 
     new_rating = get_input
-    fav.update_attribute(:my_rating, new_rating)
-    puts ""
-    puts "Rating updated to #{fav.my_rating}"
-    puts "*****************"
-    puts "Press return to return to your favorites"
+    case new_rating
+    when /\d{1,2}/
+      fav.update_attribute(:my_rating, new_rating)
+      puts ""
+      puts "Rating updated to #{fav.my_rating}"
+      puts "*****************"
+      puts "Press return to return to your favorites"
+    # when /\D/
+    #   puts ""
+    #   puts "Please enter a number"
+    #   puts "Press return to return to your favorites"
+    else
+      puts ""
+      puts "Hmm. Try again."
+      puts "Press return to return to your favorites"
+    end
 
     returner = get_input
     fav.user.favorite_restaurants if returner
