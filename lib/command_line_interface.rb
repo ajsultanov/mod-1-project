@@ -1,4 +1,4 @@
- def welcome
+def welcome
   puts "
   █     █          █ █
   █     █   █ █ █    █     █ █ █    █ █ █   █ █   █ █   █ █ █
@@ -62,7 +62,7 @@ def main_menu(user)                                # MAIN MENU START
   puts ""
   puts "1. Search the Restaurant Database!"
   puts "2. View My Favorites List"
-  puts "3. Mystery Option ?????"
+  puts "3. Feeling Lucky???"
   puts "4. Exit the Program"
   print "> "
 
@@ -82,7 +82,11 @@ def main_menu(user)                                # MAIN MENU START
     user.favorite_restaurants
 
   when "3"
-    exit # mystery!
+    puts ""
+    puts "Let's roll the dice!"
+    puts "************************"
+    user.yuck_my_yum
+    #rename this
 
   when "4"
     exit
@@ -113,7 +117,8 @@ def restaurant_menu(user, restaurant)              # RESTAURANT MENU START
   puts "Options:"
   puts "1. Add to Favorites"
   puts "2. View Favorites"
-  puts "3. Exit to Main Menu"
+  puts "3. View Worst Violation"
+  puts "4. Exit to Main Menu"
   puts "Please enter a number"
   print "> "
 
@@ -128,7 +133,20 @@ def restaurant_menu(user, restaurant)              # RESTAURANT MENU START
     puts "**************"
     user.favorite_restaurants
 
-  when "3" || "exit"
+  when "3"
+    puts ""
+    puts "View Worst Violation"
+    puts "**************"
+    restaurant.worst_violation
+    puts ""
+    puts "Press return to return to #{restaurant.name}'s profile"
+
+    returner = get_input
+    restaurant.profile
+    restaurant_menu(user, restaurant) if returner
+
+
+  when "4" || "exit"
     puts ""
     puts "Exit to main menu"
     puts "*****************"
@@ -172,7 +190,7 @@ def favorite_menu(fav)                             # FAVORITE MENU START
     puts ""
     puts "Rating updated to #{fav.my_rating}"
     puts "*****************"
-    puts "Press any key to return"
+    puts "Press return to return to your favorites"
 
     returner = get_input
     fav.user.favorite_restaurants if returner
@@ -188,7 +206,7 @@ def favorite_menu(fav)                             # FAVORITE MENU START
       fav.user.reload
       puts "Favorite deleted"
       puts "****************"
-      puts "Press any key to return"
+      puts "Press return to return to the main menu"
 
       returner = get_input
       main_menu(fav.user) if returner
@@ -213,7 +231,7 @@ def favorite_menu(fav)                             # FAVORITE MENU START
 
   else
     puts "Please enter a number from the menu"
-    favorite_menu(fav)  
+    favorite_menu(fav)
   end
 end                                                # FAVORITE MENU END
 

@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
       print "> "
     else
       puts "You don't have any favorites yet!"
-      puts "Press any key to return"
+      puts "Press return to return to the main menu"
 
       returner = get_input
       main_menu(self) if returner
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
     if Favorite.exists?({user_id: self.id, restaurant_id: restaurant.id})
       puts "You have already added this restaurant as a favorite"
       puts "******************"
-      puts "Press any key to return"
+      puts "Press return to return to the main menu"
 
       returner = get_input
       main_menu(self) if returner
@@ -58,13 +58,21 @@ class User < ActiveRecord::Base
       self.reload
       puts "Added to favorites"
       puts "******************"
-      puts "Press any key to return"
+      puts "Press return to return to the main menu"
 
       returner = get_input
       main_menu(self) if returner
     end
   end
 
+  def yuck_my_yum
+    retrieve_yuck_from_json
+    puts "******************"
+    puts "Gross!"
+    puts "Press return to return to the main menu"
 
+    returner = get_input
+    main_menu(self) if returner
+  end
 
 end
